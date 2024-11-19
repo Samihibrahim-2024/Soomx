@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقات الهدايا</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: radial-gradient(circle, #5e2b7d 40%, #000000 100%);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        @media (max-width: 740px) {
+            .button-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+        }
+
+        .nav-item a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item a:hover {
+            background-color: black;
+        }
+
+        .separator {
+            margin: 0 10px;
+            color: white;
+        }
+
+        .logo {
+            display: block;
+            margin: 20px auto;
+            width: 300px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .giftcards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 60px;
+        }
+
+        .giftcard {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .giftcard img {
+            width: 100%;
+            height: auto;
+            border: 5px solid #fff;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 625px;
+            height: 600px;
+            background-color: white;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .popup h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .popup-close:hover {
+            background-color: darkred;
+        }
+
+        .popup-content-container {
+            display: flex;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .popup-left {
+            width: 50%;
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            max-height: 550px;
+        }
+
+        .popup-right {
+            width: 50%;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .popup-image {
+            max-width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .purchase-container {
+            width: 300px;
+            height: 250px;
+            background-color: #666363;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            padding: 10px;
+            margin: 20px auto;
+            overflow: auto;
+        }
+
+        .purchase-button {
+            background-color: #5e2b7d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: block;
+            width: auto;
+            text-align: center;
+        }
+
+        .purchase-button:hover {
+            background-color: #7f48a0;
+        }
+
+        @media (max-width: 740px) {
+            .popup {
+                width: 90%;
+                height: 600px;
+                padding: 15px;
+                overflow-y: auto;
+            }
+
+            .popup-content-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .popup-left, .popup-right {
+                width: 100%;
+                padding: 10px 0;
+                border-right: none;
+            }
+
+            .popup-right {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .popup-image {
+                max-width: 100%;
+                height: auto;
+                margin-bottom: 15px;
+            }
+
+            .popup-close {
+                top: 5px;
+                right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <span class="nav-item"><a href="https://pusdt.io">Home</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/mastercard.html">MasterCard</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/bridge.html">Bridge Crypto</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/giftcards.html">Gift Cards</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/ContactUs.html">Contact Us</a></span>
+    </div>
+
+    <img src="https://pusdt.io/images/logo.jpg" alt="Logo" class="logo">
+
+    <div class="country-selector">
+        <select id="country-select" class="country-select">
+            <option value="">اختر دولة</option>
+            <option value="saudi-arabia">السعودية</option>
+            <option value="united-arab-emirates">الإمارات</option>
+            <option value="germany">ألمانيا</option>
+        </select>
+    </div>
+
+    <div class="giftcards-grid" id="giftcards-container"></div>
+
+    <div class="popup">
+        <button class="popup-close">إغلاق</button>
+        <div class="popup-content-container">
+            <div class="popup-left">
+                <h2 id="popup-title"></h2>
+                <div id="popup-content" style="overflow-y: auto;"></div>
+            </div>
+            <div class="popup-right">
+                <img id="popup-image" class="popup-image" src="" alt="Card Image">
+                <div id="purchase-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let giftCardsData = [];
+
+        // دالة لجلب بيانات بطاقات الهدايا بناءً على الدولة المحددة
+        function fetchGiftCards(filePath) {
+            fetch(filePath)
+                .then(response => response.json())
+                .then(giftCards => {
+                    giftCardsData = giftCards;
+                    displayGiftCards(giftCardsData); // عرض بطاقات الهدايا
+                })
+                .catch(error => console.error('Error fetching gift card data:', error));
+        }
+
+        // إعداد قائمة الدول عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // عرض بطاقات السعودية أولاً عند تحميل الصفحة
+            fetchGiftCards('giftcards/giftcards_data.json');
+
+            // إضافة مستمع لحدث تغيير الدولة
+            document.getElementById('country-select').addEventListener('change', function() {
+                const selectedCountry = this.value;
+                let filePath = '';
+
+                // تحديد مسار ملف JSON بناءً على الدولة المحددة
+                if (selectedCountry === 'united-arab-emirates') {
+                    filePath = 'giftcards/uae_giftcards_data.json';
+                } else if (selectedCountry === 'germany') {
+                    filePath = 'giftcards/germany_giftcards_data.json';
+                } else if (selectedCountry === 'saudi-arabia') {
+                    filePath = 'giftcards/giftcards_data.json'; // مسار السعودية
+                }
+
+                // جلب البيانات إذا تم اختيار دولة
+                if (filePath) {
+                    fetchGiftCards(filePath);
+                }
+            });
+        });
+
+        // دالة لعرض بطاقات الهدايا
+        function displayGiftCards(cards) {
+            const container = document.getElementById('giftcards-container');
+            container.innerHTML = ''; // إعادة تعيين المحتوى
+            cards.forEach(card => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'giftcard';
+                cardDiv.innerHTML = `<img src="${card.card_image_url}" alt="${card.name}" class="card-image">`;
+                container.appendChild(cardDiv);
+
+                // إضافة حدث النقر على الصورة لإظهار النافذة المنبثقة
+                cardDiv.querySelector('.card-image').addEventListener('click', function() {
+                    showPopup(card); // استدعاء دالة لعرض النافذة المنبثقة
+                });
+            });
+        }
+
+        // دالة لإظهار النافذة المنبثقة بمعلومات البطاقة
+function showPopup(card) {
+    document.getElementById('popup-title').innerText = card.name;
+    document.getElementById('popup-image').src = card.card_image_url;
+    document.getElementById('popup-content').innerHTML = `
+        <p><strong>Category:</strong> ${card.category}</p>
+        <p><strong>Description:</strong> ${card.description}</p>
+        <p><strong>Currency:</strong> ${card.currency_code}</p>
+        <p><strong>Minimum Amount:</strong> ${card.min_amount} ${card.currency_code}</p>
+        <p><strong>Maximum Amount:</strong> ${card.max_amount} ${card.currency_code}</p>
+        <p><strong>Expiry:</strong> ${card.expiry_and_validity}</p>
+        <p><strong>Product ID:</strong> ${card.product_id}</p>
+        <p><strong>Denominations:</strong> ${card.denominations}</p>
+        <p><a href="${card.terms_and_conditions}" target="_blank">Terms and Conditions</a></p>
+        <p><a href="${card.how_to_use}" target="_blank">How to Use</a></p>
+    `;
+
+    // إنشاء الزر هنا
+    const purchaseButton = document.createElement('button');
+    purchaseButton.className = 'purchase-button';
+    purchaseButton.innerText = 'شراء الآن';
+    document.getElementById('popup-content').appendChild(purchaseButton);
+
+    // إضافة حدث النقر على زر الشراء
+    purchaseButton.addEventListener('click', function() {
+        const orderUrl = `https://pusdt.io/giftcards/order.html?name=${encodeURIComponent(card.name)}&product_id=${encodeURIComponent(card.product_id)}&denominations=${encodeURIComponent(card.denominations)}`;
+        window.location.href = orderUrl; // توجيه المستخدم إلى صفحة الطلب
+    });
+
+    document.querySelector('.popup').style.display = 'block';
+    document.querySelector('.popup-overlay').style.display = 'block';
+}
+        // إغلاق النافذة المنبثقة
+        document.querySelector('.popup-close').addEventListener('click', function() {
+            document.querySelector('.popup').style.display = 'none';
+            document.querySelector('.popup-overlay').style.display = 'none';
+            document.querySelector('.denomination-dropdown')?.remove(); // إزالة القائمة المنسدلة عند الإغلاق
+        });
+  
+    </script>
+</body>
+</html>

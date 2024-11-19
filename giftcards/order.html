@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <title>giftcardsorder</title>
+    
+    <!-- تضمين CSS لمكتبة Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: radial-gradient(circle, #5e2b7d 40%, #000000 100%);
+        }
+
+        .logo {
+            display: block;
+            margin: 20px auto;
+            width: 300px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .form-container {
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: black; /* خلفية سوداء */
+            border: 2px solid black; /* إطار 2 بكسل باللون الأسود */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.9);
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 98%; /* ملء 90% من عرض الحاوية */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 20px; /* حواف دائرية */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف للحقل */
+        }
+
+.select2-container {
+    width: 98% !important; /* ملء 98% من عرض الحاوية */
+    display: inline-block; /* إضافة display inline-block */
+}
+
+.select2-container--default .select2-selection--single {
+    height: 40px; /* ارتفاع الحقل */
+    border-radius: 20px; /* حواف دائرية */
+    border: 1px solid #ccc; /* حدود */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 50px; /* محاذاة النص عموديًا */
+    padding-left: 10px; /* مساحة داخلية */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 50px; /* ارتفاع السهم */
+    right: 10px; /* موقع السهم */
+}
+
+
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5e2b7d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4c1e5a;
+        }
+
+        .currency-icon {
+            width: 20px; /* حجم الأيقونة */
+            margin-left: 5px; /* مسافة بين النص والأيقونة */
+            vertical-align: middle; /* محاذاة الأيقونة مع النص */
+        }
+
+        /* دائرة التحميل في أسفل النموذج على اليسار */
+        #loading-screen {
+          position: fixed; /* لتثبيت الحاوية في وسط الشاشة */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* أعلى من باقي العناصر */
+    display: none; /* مخفية في البداية */*/
+        }
+
+        /* التأكد من أن الدائرة المركزية ما زالت هنا */
+        .loader {
+            border: 8px solid transparent; /* جعل الحدود شفافة */
+            border-top: 8px solid black; /* لون الجزء العلوي أسود */
+            border-right: 8px solid purple; /* لون الجزء الأيمن بنفسجي */
+            border-bottom: 8px solid transparent; /* الجزء السفلي شفاف */
+            border-left: 8px solid purple; /* لون الجزء الأيسر بنفسجي */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #countdown-text {
+            color: #333; /* لون النص */
+            font-size: 18px; /* حجم النص */
+            margin-top: 15px; /* مسافة فوق النص */
+        }
+        
+        .button-container {
+    text-align: center; /* توسيط النص داخل الحاوية */
+    margin-top: 20px; /* إضافة مسافة من الأعلى إذا لزم الأمر */
+}
+
+
+.back-button {
+    width: 20%; /* تحديد عرض الزر بنسبة 50% */
+    padding: 10px; /* إضافة padding لجعل الزر أكبر */
+    font-size: 16px; /* ضبط حجم النص داخل الزر */
+    background-color: #4CAF50; /* لون الخلفية */
+    color: white; /* لون النص */
+    border: none; /* إزالة الحدود الافتراضية */
+    border-radius: 5px; /* إضافة زوايا مدورة */
+    cursor: pointer; /* تغيير شكل المؤشر عند المرور فوق الزر */
+}
+
+.back-button:hover {
+    background-color: #45a049; /* تغيير لون الخلفية عند التمرير فوق الزر */
+}
+    </style>
+</head>
+<body>
+    <img src="https://pusdt.io/images/logo.jpg" alt="Logo" class="logo">
+    <div class="button-container">
+    <button id="back-button" class="back-button">Back</button>
+</div>
+
+    <div class="form-container">
+        <label for="card-name">اسم البطاقة:</label>
+        <input type="text" id="card-name" value="" readonly>
+        
+        <label for="product-id"></label>
+<input type="hidden" id="product-id" value="">
+
+        <label for="amount">اختر المبلغ:</label>
+        <div id="amount-container">
+            <select id="amount" name="amount">
+                <!-- سيتم إضافة القيم هنا بناءً على البيانات الممررة -->
+            </select>
+            <input type="number" id="custom-amount" placeholder="MAX 5000" style="display: none;">
+        </div>
+
+        <label for="payment-method">اختر وسيلة الدفع:</label>
+        <select id="payment-method" class="select2">
+            <option value="SOL">SOL (Mainnet) <img src="https://trocador.app/static/img/icons/sol.svg" class="currency-icon" alt="SOL"></option>
+            <option value="TRX">TRX (Mainnet) <img src="https://trocador.app/static/img/icons/trx.svg" class="currency-icon" alt="TRX"></option>
+            <option value="ETH">ETH (Mainnet) <img src="https://trocador.app/static/img/icons/eth.svg" class="currency-icon" alt="ETH"></option>
+            <option value="BTC">BTC (Mainnet) <img src="https://trocador.app/static/img/icons/btc.svg" class="currency-icon" alt="BTC"></option>
+            <option value="USDT_SOL">USDT (SOL) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+            <option value="USDT_TRC20">USDT (TRC20) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+            <option value="USDT_ETH">USDT (ETH) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+            <option value="USDT_BEP20">USDT (BEP20) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+        </select>
+
+        <label for="email">البريد الإلكتروني لاستلام تفاصيل البطاقة:</label>
+        <input type="email" id="email" placeholder="ادخل بريدك الالكتروني" required>
+
+        <button type="button" id="submit-button">إرسال الطلب</button>
+    </div>
+<!-- إضافة الحاوية الجديدة -->
+<div class="form-container" style="margin-top: 15px; direction: rtl;"> <!-- إضافة الهامش هنا -->
+    <h2>التعليمات</h2>
+    <p>1- بعد اختيار البطاقة يرجى ملئ النموذج بالمبلغ واختيار عملة الدفع وعنوان بريدك الالكتروني.</p>
+    <p>2- يتم ارسال تفاصيل البطاقة الى بريدك الالكتروني (يرجى التحقق من بريدك الالكتروني قبل الشروع في عملية الشراء لتجنب ارسال بيانات البطاقة الى عنوان بريد خاطئ).</p>
+    <p>3- بعد ملئ النموذج وارسال الطلب نقوم بمعالجة طلبك ويتم تحويلك الى صفحة الدفع الخاصة بمزود البطاقات (احتفظ بمعرف الطلب (ID)) في حال حدوث أي خطأ يمكنك التواصل مع المزود بشكل مباشر 24/7 عبر التيلغرام @TrocadorSupportBot باللغة العربية.</p>
+    <p>4- نحن لا نحتفظ بأي أموال من أموالك هذه العملية تتم بشكل تلقائي ولا تتطلب التسجيل.</p>
+    <p>5- يرجى التحقق من اسم العملة والشبكة قبل ارسال الأموال مثال (SOL (Mainnet)) أي عملة Solana لشبكة Solana الرئيسية.</p>
+    <p>6- لماذا يثق بنا الجميع؟ نحن نقدم خدمة البحث عن أفضل المزودين للبطاقات وأكثرهم موثوقية.</p>
+    <p>7- هل نحصل على رسوم إضافية مقابل خدماتنا؟  </p>
+لا، لا نفرض أي رسوم على المستخدمين. منصتنا مجانية تمامًا للاستخدام. تأتي الرسوم التي نتلقاها من برنامج الشراكة الخاص بنا مع مقدمي خدمات البطاقات , يتيح لنا هذا تقديم الخدمة دون تحميل المستخدمين أي تكاليف اضافبة.
+
+    <p>للتواصل معنا بشكل مباشر يمكنك زيارة قسم <strong><a href="https://pusdt.io/contactus" target="_blank">Contact Us</a></strong>.</p>
+
+</div>
+
+
+    <div id="loading-screen" style="display: none;">
+        <div class="loader"></div>
+        <p id="countdown-text">You will be redirected to the payment link in <span id="countdown">30</span> seconds.</p>
+    </div>
+
+    <!-- تضمين مكتبة JavaScript لمكتبة Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#payment-method').select2();
+    });
+        document.getElementById('back-button').addEventListener('click', function() {
+    window.history.back();
+});
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

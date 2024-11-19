@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <title>pusdt.io | Crypto Services Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: radial-gradient(circle, #5e2b7d 40%, #000000 100%);
+            color: white;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        @media (max-width: 740px) {
+            .button-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+        }
+
+        .nav-item a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .separator {
+            margin: 0 10px;
+            color: white;
+        }
+
+        .logo {
+            display: block;
+            margin: 20px auto;
+            width: 300px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .content {
+            width: 50%;
+            text-align: left;
+        }
+
+        .content h2 {
+            font-size: 28px;
+            color: #ffcc00;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: white;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .image-container {
+            width: 45%;
+            position: relative; /* لجعل العناصر داخلها في موضع نسبي */
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 20px; /* حواف دائرية 20 بكسل للصورة */
+        }
+
+        /* New button styles */
+        .buy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: transparent; /* نفس لون الخلفية */
+            color: white;
+            border: 2px solid white; /* إطار أبيض */
+            border-radius: 20px; /* حواف دائرية 20 بكسل */
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease; /* تأثيرات التحول */
+            position: relative;
+            overflow: hidden;
+            animation: colorChange 2s infinite; /* تغيير اللون */
+            margin-top: 20px; /* لإضافة مساحة فوق الزر */
+        }
+
+        /* إضافة تأثير الوهج */
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 20px; /* حواف دائرية 20 بكسل */
+            background: rgba(255, 255, 255, 0.1);
+            filter: blur(20px); /* وهج حول الزر */
+            z-index: -1; /* وضعه خلف الزر */
+        }
+
+        @keyframes glowing {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes colorChange {
+            0%, 100% {
+                border-color: white;
+            }
+            50% {
+                border-color: #ffcc00; /* اللون الثاني للإطار */
+            }
+        }
+
+        /* تأثير تكبير الزر عند مرور الماوس عليه */
+        .buy-button:hover {
+            transform: scale(1.1); /* تكبير الزر */
+            animation: none; /* إيقاف تغيير اللون أثناء التمرير */
+        }
+
+        /* Media query for screens smaller than 768px */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column; /* Stack elements vertically */
+                text-align: center;
+            }
+
+            .content {
+                width: 100%;
+            }
+
+            .image-container {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+
+        /* New section styles */
+        .virtual-mastercard-section, .bridge-crypto-section, .giftcards-section {
+            margin-top: 50px;
+        }
+
+        /* Styles for the icons */
+        .icon-container {
+            position: absolute; /* لجعل الأيقونات في موقع معين */
+            top: 50%; /* وسط الصورة عموديًا */
+            left: 50%; /* وسط الصورة أفقيًا */
+            transform: translate(-50%, -50%); /* لتحريك الأيقونات إلى المركز */
+            display: flex;
+            flex-wrap: wrap; /* لف الأيقونات إذا لزم الأمر */
+            justify-content: center; /* توسيط الأيقونات */
+            pointer-events: none; /* لجعل الأيقونات غير قابلة للنقر */
+            animation: float 6s infinite; /* حركة ديناميكية */
+        }
+
+        .icon-container img {
+            width: 50px; /* حجم الأيقونات */
+            margin: 5px; /* مسافة بين الأيقونات */
+            animation: move 10s infinite alternate; /* حركة الأيقونات */
+        }
+
+        /* حركة ديناميكية للأيقونات */
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-10px);
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            100% {
+                transform: translateX(calc(-50% + 20px)) translateY(calc(-50% + 20px)); /* حركات عشوائية */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <span class="nav-item"><a href="https://pusdt.io">Home</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/virtualmastercard">Virtual MasterCard</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/bridge">Bridge Crypto</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/giftcards">Gift Cards</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/contactus">Contact Us</a></span>
+    </div>
+
+    <img src="https://pusdt.io/images/logo.jpg" alt="Logo" class="logo">
+
+    <!-- Adding the description section for the homepage with image on the right -->
+    <div class="content-wrapper">
+        <div class="content">
+            <h2>Welcome to pusdt.io | Crypto Services Hub</h2>
+            <p>
+                Welcome to pusdt.io – your one-stop destination for crypto-powered services. Whether you're looking to buy a Virtual MasterCard with cryptocurrency, explore a variety of GiftCards, or seamlessly bridge your crypto assets across multiple chains with our Bridge Crypto service, we've got you covered. At pusdt.io, we make secure, fast, and convenient transactions easy, all with the power of USDT and other cryptocurrencies. Discover the future of payments today!
+            </p>
+        </div>
+        <div class="image-container">
+            <img src="https://pusdt.io/images/it.jpg" alt="Buy Virtual MasterCard with crypto, Buy GiftCards with Crypto, Bridge Crypto">
+        </div>
+    </div>
+
+    <!-- New Virtual MasterCard Section -->
+    <div class="virtual-mastercard-section">
+        <div class="content-wrapper">
+            <div class="content">
+                <h2>Virtual MasterCard | Crypto Services Hub </h2>
+                <p>
+                    Get your Virtual MasterCard quickly and securely at pusdt.io! Our service allows you to buy a virtual card that you can use for online purchases and payments. With just a few clicks, you can access the benefits of a MasterCard without the hassle of traditional banking. Enjoy the freedom and flexibility of using cryptocurrency for your daily transactions!
+                </p>
+                <a href="https://pusdt.io/virtualmastercard" class="buy-button" alt="Buy Virtual Mastercard - pusdt.io">Buy Virtual Mastercard</a>
+            </div>
+            <div class="image-container">
+                <img src="https://pusdt.io/images/mastercard/m2.jpg" alt="Virtual MasterCard">
+            </div>
+        </div>
+    </div>
+
+    <!-- New Bridge Crypto Section -->
+    <div class="bridge-crypto-section">
+        <div class="content-wrapper">
+            <div class="content">
+                <h2>Bridge Crypto | Crypto Services Hub</h2>
+                <p>
+                    Bridge your cryptocurrencies seamlessly between chains with pusdt.io! Our Cross Chain Bridge allows you to transfer your digital assets quickly and securely. Experience the reliability, speed, and ease of converting between different cryptocurrencies. With pusdt.io, you can manage your assets with confidence.
+                </p>
+                <a href="https://pusdt.io/bridge" class="buy-button" alt="Bridge Crypto - pusdt.io">Bridge Crypto</a>
+            </div>
+            <div class="image-container">
+                <img src="https://pusdt.io/images/bridge/bridge%20crypto.jpg" alt="Bridge Crypto - Transfer cryptocurrencies between chains">
+                <div class="icon-container">
+                    <img src="https://trocador.app/static/img/icons/btc.svg" alt="Bitcoin Icon - Bridge Crypto" />
+                    <img src="https://trocador.app/static/img/icons/usdt.svg" alt="USDT Icon - Bridge Crypto" />
+                    <img src="https://trocador.app/static/img/icons/trx.svg" alt="Tron Icon - Bridge Crypto" />
+                    <img src="https://trocador.app/static/img/icons/eth.svg" alt="Ethereum Icon - Bridge Crypto" />
+                    <img src="https://trocador.app/static/img/icons/sol.svg" alt="Solana Icon - Bridge Crypto" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Gift Cards Section -->
+    <div class="giftcards-section">
+        <div class="content-wrapper">
+            <div class="content">
+                <h2>Gift Cards | Crypto Services Hub</h2>
+                <p>
+                    Surprise your friends and family with the perfect gift! With pusdt.io, you can easily purchase gift cards that can be shared with loved ones. Whether it's for birthdays, holidays, or just because, our gift cards offer flexibility and convenience for all occasions. Show you care with a thoughtful gift from pusdt.io!
+                </p>
+                <a href="https://pusdt.io/giftcards" class="buy-button" alt="Buy Gift Cards - pusdt.io">Buy Gift Cards</a>
+            </div>
+            <div class="image-container">
+                <img src="https://pusdt.io/images/giftcards/giftcards.jpg" alt="Gift Cards">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

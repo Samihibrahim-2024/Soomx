@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <title>pusdt.io | Crypto Services Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: radial-gradient(circle, #5e2b7d 40%, #000000 100%);
+            color: white;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        @media (max-width: 740px) {
+            .button-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+        }
+
+        .nav-item a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .separator {
+            margin: 0 10px;
+            color: white;
+        }
+
+        .logo {
+            display: block;
+            margin: 20px auto;
+            width: 300px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .content {
+            width: 50%;
+            text-align: left;
+        }
+
+        .content h2 {
+            font-size: 28px;
+            color: #ffcc00;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: white;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .image-container {
+            width: 45%;
+            position: relative; /* لجعل العناصر داخلها في موضع نسبي */
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 20px; /* حواف دائرية 20 بكسل للصورة */
+        }
+
+        /* New button styles */
+        .buy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: transparent; /* نفس لون الخلفية */
+            color: white;
+            border: 2px solid white; /* إطار أبيض */
+            border-radius: 20px; /* حواف دائرية 20 بكسل */
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease; /* تأثيرات التحول */
+            position: relative;
+            overflow: hidden;
+            animation: colorChange 2s infinite; /* تغيير اللون */
+            margin-top: 20px; /* لإضافة مساحة فوق الزر */
+        }
+
+        /* إضافة تأثير الوهج */
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 20px; /* حواف دائرية 20 بكسل */
+            background: rgba(255, 255, 255, 0.1);
+            filter: blur(20px); /* وهج حول الزر */
+            z-index: -1; /* وضعه خلف الزر */
+        }
+
+        @keyframes glowing {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes colorChange {
+            0%, 100% {
+                border-color: white;
+            }
+            50% {
+                border-color: #ffcc00; /* اللون الثاني للإطار */
+            }
+        }
+
+        /* تأثير تكبير الزر عند مرور الماوس عليه */
+        .buy-button:hover {
+            transform: scale(1.1); /* تكبير الزر */
+            animation: none; /* إيقاف تغيير اللون أثناء التمرير */
+        }
+
+        /* Media query for screens smaller than 768px */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column; /* Stack elements vertically */
+                text-align: center;
+            }
+
+            .content {
+                width: 100%;
+            }
+
+            .image-container {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+
+        /* New section styles */
+        .virtual-mastercard-section, .bridge-crypto-section, .giftcards-section {
+            margin-top: 50px;
+        }
+
+        /* Styles for the icons */
+        .icon-container {
+            position: absolute; /* لجعل الأيقونات في موقع معين */
+            top: 50%; /* وسط الصورة عموديًا */
+            left: 50%; /* وسط الصورة أفقيًا */
+            transform: translate(-50%, -50%); /* لتحريك الأيقونات إلى المركز */
+            display: flex;
+            flex-wrap: wrap; /* لف الأيقونات إذا لزم الأمر */
+            justify-content: center; /* توسيط الأيقونات */
+            pointer-events: none; /* لجعل الأيقونات غير قابلة للنقر */
+            animation: float 6s infinite; /* حركة ديناميكية */
+        }
+
+        .icon-container img {
+            width: 50px; /* حجم الأيقونات */
+            margin: 5px; /* مسافة بين الأيقونات */
+            animation: move 10s infinite alternate; /* حركة الأيقونات */
+        }
+
+        /* حركة ديناميكية للأيقونات */
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-10px);
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            100% {
+                transform: translateX(calc(-50% + 20px)) translateY(calc(-50% + 20px)); /* حركات عشوائية */
+            }
+        }
+        /* Media query for screens smaller than 768px for Bridge Crypto section */
+/* Media query for screens smaller than 768px for Bridge Crypto section */
+@media (max-width: 768px) {
+    .bridge-crypto-section .content-wrapper iframe {
+        width: 50%; /* اجعل عرض الإطار 80% */
+        height: auto; /* اجعل الارتفاع تلقائي */
+    }
+}
+
+
+.answer {
+            background-color: #333; /* خلفية رمادية داكنة */
+            color: white; /* لون النص */
+            padding: 10px; /* حشو داخلي */
+            border-radius: 5px; /* زوايا دائرية */
+            display: inline-block; /* لجعل الخلفية تأخذ فقط مساحة النص */
+            margin-top: 5px; /* مسافة أعلى الجواب */
+            margin-bottom: 10px; /* مسافة أسفل الجواب */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <span class="nav-item"><a href="https://pusdt.io">Home</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/virtualmastercard">Virtual MasterCard</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/bridge">Bridge Crypto</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/giftcards">Gift Cards</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://pusdt.io/contactus">Contact Us</a></span>
+    </div>
+
+    <img src="https://pusdt.io/images/logo.jpg" alt="Logo" class="logo">
+
+    <!-- Adding the description section for the homepage with image on the right -->
+<div class="content-wrapper">
+    <div class="content">
+        <h2>Welcome to pusdt.io | Crypto Services Hub</h2>
+        <p>
+            1- What is cross-chain currency exchange? <br>
+            <span class="answer">Cross-chain exchange allows users to swap cryptocurrencies between different blockchain networks without the need for a third party. For example, you can convert USDT from the Ethereum network to the TRX network.</span>
+        </p>
+        <p>
+            2- How do I verify the reliability of exchange providers on your site? <br>
+            <span class="answer">We evaluate providers using strict criteria that include security, speed, reasonable fees, and reviews from previous users. We ensure that only the most reliable and transparent providers in the market are featured on our site.</span>
+        </p>
+        <p>
+            3- Can I track the status of the exchange? <br>
+            <span class="answer">Yes, most of the platforms we recommend offer tools to track the exchange status in real-time using the order ID.</span>
+        </p>
+        <p>
+            4- Does pusdt.io charge any fees from users? <br>
+            <span class="answer">No, we do not charge any fees from users. Our platform is completely free to use. The fees we receive come from our partnership program with the exchange providers. This allows us to offer the service without passing any additional costs to the users.</span>
+        </p>
+        <p>
+            5- Why can I trust you? <br>
+            <span class="answer">No registration and no need to share your personal details. We don't hold your funds; all exchanges take place instantly in fully automatic mode.</span>
+        </p>
+    </div>
+    
+        <div class="image-container">
+            <img src="https://pusdt.io/images/bridge/1.jpg" alt="Buy Virtual MasterCard with crypto, Buy GiftCards with Crypto, Bridge Crypto">
+        </div>
+    </div>
+    
+   
+<!-- New Virtual MasterCard Section -->
+<div class="virtual-mastercard-section">
+    <div class="content-wrapper">
+        <div class="content">
+            <h2>You can exchange with the provider | Trocador</h2>
+            <p>
+            Trade Cryptocurrency Privately
+Fast. Safe. Easy.
+            </p>
+            Choose the currency you want to send from.
+             </p>
+            Enter the amount you wish to send.
+
+              </p>
+        
+               </p>
+               Click the exchange button and enter the wallet address where you want to receive the funds.
+
+                </p>
+                 </p>
+                 Important Note: Please verify the wallet address and network before proceeding with the exchange process to ensure the safety of your funds.
+
+                </p>
+
+                </p>
+                Enjoy your money transfer experience with ease and security!
+                </p>
+                </p>
+                Important Advice: Avoid sending amounts less than 50 USDT or the equivalent in other currencies. This is due to high transaction fees for small amounts, which may reduce the value of the received amount.
+                </p>
+
+        </div>
+        <div class="image-container" style="position: relative;">
+            <img src="https://pusdt.io/images/1.jpg" alt="Virtual MasterCard" style="width: 100%; height: auto;" class="virtual-image">
+            <iframe src="https://trocador.app/widget/?ref=CADyW717Hs" width="100%" height="100%" scrolling="no" style="position: absolute; top: 0; left: 0; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+<style>
+    /* Media query لإخفاء الصورة على الشاشات الصغيرة والأجهزة اللوحية */
+    @media (max-width: 1366px) { /* تعديل العرض ليتضمن الأجهزة اللوحية */
+        .virtual-image {
+            display: none; /* إخفاء الصورة على الشاشات الصغيرة */
+        }
+
+        .image-container {
+            position: relative; /* تأكد من بقاء الحاوية في موضعها */
+            height: 325px; /* يمكنك تعيين ارتفاع للحاوية إذا لزم الأمر */
+        }
+
+        iframe {
+            height: 100%; /* اجعل الإطار في ارتفاع الحاوية */
+        }
+    }
+       /* Media query لإخفاء الصورة وتحريك الحاوية إلى الوسط على الشاشات بعرض 1366 بكسل أو أقل */
+    @media (max-width: 1366px) {
+        .virtual-image {
+            display: none; /* إخفاء الصورة على الشاشات 1366 بكسل أو أقل */
+        }
+
+        .image-container {
+            display: flex; /* استخدام flexbox للمحاذاة */
+            justify-content: center; /* محاذاة الحاوية إلى المركز أفقيًا */
+            align-items: flex-end; /* محاذاة الحاوية إلى الأسفل */
+            height: 400px; /* تعيين ارتفاع للحاوية */
+            margin: 0 auto; /* مارجن تلقائي لتوسيع الحاوية في المركز */
+        }
+
+        iframe {
+            width: 100%; /* عرض iframe */
+            height: calc(100% - 15px); /* ارتفاع iframe مع تقليل 25 بكسل */
+            margin-bottom: 25px; /* إضافة هامش سفلي قدره 25 بكسل */
+        }
+    }
+</style>
+    
+        </div>
+    </div>
+
+   <!-- New Bridge Crypto Section -->
+    <div class="bridge-crypto-section">
+        <div class="content-wrapper">
+            <div class="content">
+                <h2>Bridge Crypto | FixedFloat</h2>
+
+                <p>
+                After selecting the currency fields, you are directed to the provider's page, where you can enter the desired amount, wallet address, and choose the type of transfer that suits your needs.
+                <p>
+
+                </p>
+                Fixed Rate: 1% if you opt for a fixed rate.
+                   </p>
+                    </p>
+                Floating Rate: 0.5% if you opt for a floating rate based on market conditions.
+                </p>
+                 </p>
+                 Enjoy a seamless and secure transfer experience with flexible options that meet your financial needs.
+
+                </p>
+            </div>
+            <div class="image-container">
+                <img src="https://pusdt.io/images/1.jpg" alt="Bridge Crypto - Transfer cryptocurrencies between chains">
+                       <!-- Adding the iframe -->
+        <iframe src="https://pusdt.io/bridgecrypto/ff.html" 
+                style="border: none; width: 80%; height: 80%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" 
+                allowfullscreen>
+        </iframe>
+        
+            </div>
+        </div>
+    </div>
+<style>
+    /* تنسيقات للشاشات الصغيرة */
+    @media (max-width: 768px) {
+        .bridge-crypto-section {
+            position: relative; /* تأكد من أن القسم يمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section .image-container {
+            position: relative; /* تأكد من أن الحاوية للصور تمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section iframe {
+            width: 100% !important;
+            height: 110% !important;
+            position: absolute !important;
+            top: calc(50% + 16%) !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }
+    }
+
+    /* تنسيقات للشاشات متوسطة الحجم */
+    @media (min-width: 769px) and (max-width: 1366px) {
+        .bridge-crypto-section {
+            position: relative; /* تأكد من أن القسم يمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section .image-container {
+            position: relative; /* تأكد من أن الحاوية للصور تمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section iframe {
+            width: 90% !important; /* تغيير العرض للشاشات المتوسطة */
+            height: 80% !important; /* تغيير الارتفاع للشاشات المتوسطة */
+            position: absolute !important;
+            top: calc(50% + 10%) !important; /* نقل iframe إلى الأسفل بقيمة محددة */
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }
+    }
+
+    /* تنسيقات للشاشات الأكبر من 1366px */
+    @media (min-width: 1367px) {
+        .bridge-crypto-section {
+            position: relative; /* تأكد من أن القسم يمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section .image-container {
+            position: relative; /* تأكد من أن الحاوية للصور تمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section iframe {
+            width: 80% !important; /* تغيير العرض للشاشات الكبيرة */
+            height: 70% !important; /* تغيير الارتفاع للشاشات الكبيرة */
+            position: absolute !important;
+            top: 50% !important; /* محاذاة iframe إلى منتصف الصورة */
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }
+          @media (min-width: 1367px) {
+        .bridge-crypto-section {
+            position: relative; /* تأكد من أن القسم يمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section .image-container {
+            position: relative; /* تأكد من أن الحاوية للصور تمتلك موضعاً نسبياً */
+        }
+
+        .bridge-crypto-section iframe {
+            width: 80% !important; /* تغيير العرض للشاشات الكبيرة */
+            height: 100% !important; /* تغيير الارتفاع للشاشات الكبيرة */
+            position: absolute !important;
+            top: 50% !important; /* محاذاة iframe إلى منتصف الصورة */
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }
+    }
+    }
+</style>
+
+
+
+    <!-- New Gift Cards Section -->
+    <div class="giftcards-section">
+        <div class="content-wrapper">
+            <div class="content">
+                <h2>swap with | Swapuz!</h2>
+                <p>
+                 Simple
+exchange
+809
++
+cryptocurrencies
+Fast crypto swaps with Web3 connection
+                </p>
+            </div>
+<div class="image-container" style="position: relative;">
+    <img src="https://pusdt.io/images/1.jpg" alt="Gift Cards" style="width: 100%; height: auto;">
+    <iframe id="frame" 
+            src="https://widget.swapuz.com/?amount=0.1&coin=ETH&ref=781fb243-4718-4f7f-b7ca-284318199d5b&lang=en" 
+            width="465" 
+            height="420" 
+            frameborder="0" 
+            scrolling="no" 
+            style="border: none; position: absolute; top: calc(50% + 20px); left: 50%; transform: translate(-50%, -50%);">
+    </iframe>
+</div>
+
+        </div>
+    </div>
+<style>
+    /* تنسيقات للشاشات الصغيرة */
+    @media (max-width: 768px) {
+        .giftcards-section .image-container {
+            position: relative; /* تأكد من أن الحاوية للصور تمتلك موضعاً نسبياً */
+        }
+
+        .giftcards-section iframe {
+            width: 100% !important; /* جعل العرض 100% */
+            height: 110% !important; /* جعل الارتفاع 100% */
+            position: absolute !important; /* التأكد من أن التضمين في موضع مطلق */
+            top: 10%; /* وضع التضمين في منتصف الصورة مع تحريكه قليلاً للأعلى */
+            left: 0; /* محاذاة إلى اليسار */
+            transform: none; /* إلغاء أي تحويل */
+        }
+
+        .giftcards-section img {
+            height: auto; /* جعل الصورة تناسب ارتفاع الحاوية */
+        }
+    }
+</style>
+</body>
+</html>
+

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقات الهدايا</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #666363; /* تغيير لون الخلفية */
+            display: flex; /* استخدام flexbox لتوسيع العناصر */
+            flex-direction: column; /* الترتيب عمودي */
+            align-items: center; /* توسيط العناصر في المحور الأفقي */
+        }
+        /* تنسيق الأزرار العلوية */
+        .top-buttons {
+            margin: 20px 0; /* هوامش حول الأزرار */
+        }
+        .top-buttons a {
+            margin: 0 10px; /* فراغ بين الأزرار */
+            padding: 10px 20px; /* مساحة داخلية */
+            background-color: #28a745; /* لون خلفية الأزرار */
+            color: white; /* لون النص */
+            text-decoration: none; /* إزالة التسطير */
+            border-radius: 8px; /* حواف دائرية */
+            transition: background-color 0.3s; /* تأثير الانتقال */
+        }
+        .top-buttons a:hover {
+            background-color: #218838; /* لون خلفية الأزرار عند التمرير */
+        }
+        /* بقية الأنماط كما هي */
+        /* تنسيق حقل الاختيار */
+        .country-select {
+            cursor: pointer; /* تغيير شكل الماوس إلى يد عند التمرير فوق القائمة المنسدلة */
+            width: 300px; /* عرض الحقل */
+            margin: 20px 0; /* توسيط الحقل بشكل عمودي */
+            border-radius: 8px; /* حواف دائرية */
+            padding: 20px; /* مساحة داخلية */
+            font-size: 16px; /* حجم الخط */
+            background-color: #949494; /* خلفية شفافة */
+            border: 5px solid #7c7c7c; /* لون إطار مشابه لإطارات الصور */
+            box-shadow: 0 0 40px rgb(255, 255, 255), inset 0 0 0 15px rgb(225, 225, 225); /* إضافة ظل */
+            appearance: none; /* إزالة تنسيق المتصفح الافتراضي */
+            -webkit-appearance: none; /* إزالة تنسيق المتصفح الافتراضي */
+            -moz-appearance: none; /* إزالة تنسيق المتصفح الافتراضي */
+            text-align: center; /* توسيط النص */
+        }
+      
+        #giftcards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* عرض 3 بطاقات في كل صف */
+            gap: 10px; /* فراغ بين البطاقة */
+        }
+        .giftcard {
+            margin: 10px;
+            text-align: center; /* محاذاة النص إلى الوسط */
+            cursor: pointer; /* تغيير المؤشر عند المرور فوق البطاقة */
+        }
+        .giftcard img {
+            width: 100%; /* عرض الصورة بالكامل */
+            height: auto;
+            border: 5px solid #fff; /* إضافة إطار أبيض للصورة */
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.9), inset 0 0 0 15px rgba(255, 255, 255, 0.9); /* إضافة ظل للصورة */
+        }
+        .card-info {
+            display: none; /* إخفاء المعلومات بشكل افتراضي */
+            margin-top: 10px;
+            background-color: #f9f9f9; /* خلفية رمادية فاتحة للمعلومات */
+            padding: 10px;
+            border: 1px solid #ddd; /* حدود خفيفة */
+        }
+        .buy-now-btn {
+            display: none; /* إخفاء الزر بشكل افتراضي */  
+            margin: 10px auto; /* توسيط الزر */
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            color: black;
+            border: none;
+            cursor: pointer;
+            background-image: url('https://pusdt.io/images/snapedit_1726581513741.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 80%;
+            max-width: 200px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;        
+        }
+        .buy-now-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgb(137, 137, 137), 0 0 20px rgb(249, 249, 249);
+        }
+        /* تنسيق النافذة المنبثقة */
+        .popup {
+            display: none; 
+            position: fixed; 
+            left: 50%; 
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%; 
+            height: 80%;
+            background-color: white;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 20px;
+        }
+        .popup iframe {
+            width: 100%;
+            height: 100%;
+        }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .popup-close:hover {
+            background-color: darkred;
+        }
+        /* خلفية للنافذة المنبثقة */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+   .button-container {
+     display: flex; /* استخدام Flexbox لتوسيع الأزرار في الوسط */
+    justify-content: center; /* لتوسيع الأزرار في الوسط */
+    align-items: center; /* لتوسيع الأزرار عموديًا في الوسط */
+    position: fixed; /* لتثبيت الأزرار في أعلى الصفحة */
+    width: 100%; /* عرض كامل */
+    top: 0; /* وضعها في الجزء العلوي */
+    left: 0; /* بدءًا من اليسار */
+    z-index: 1000; /* لضمان ظهورها فوق المحتوى */
+    background-color: rgba(255, 255, 255, 0.8); /* خلفية بيضاء مع شفافية (اختياري) */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* إضافة ظل */
+        }
+        .hidden {
+    opacity: 0; /* غير مرئية */
+    pointer-events: none; /* منع التفاعل */
+}
+
+        .button-wrapper {
+            position: relative;
+            width: 220px;
+            height: 40px;
+            margin: 0 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 2px solid #767070; /* إضافة إطار رمادي */
+        }
+
+        .button-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .button-wrapper:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgb(137, 137, 137), /* وهج رمادي خافت */
+            0 0 20px rgb(249, 249, 249); /* وهج رمادي أكثر سطوعًا */
+        }
+
+        .button-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+    .button-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>بطاقات الهدايا</h1>
+
+    <!-- أزرار العلوية -->
+    <div class="button-container">
+        <div class="button-wrapper">
+            <a href="https://pusdt.io/index.html">
+                <img src="https://pusdt.io/images/snapedit_1726581513741.jpg" alt="Home">
+                <span class="button-text">Home</span>
+            </a>
+        </div>
+        <div class="button-wrapper">
+            <a href="https://pusdt.io/mastercard.html">
+                <img src="https://pusdt.io/images/snapedit_1726581513741.jpg" alt="MasterCard">
+                <span class="button-text">MasterCard</span>
+            </a>
+        </div>
+        <div class="button-wrapper">
+            <a href="https://pusdt.io/giftcards.html">
+                <img src="https://pusdt.io/images/snapedit_1726581513741.jpg" alt="Gift Cards">
+                <span class="button-text">Gift Cards</span>
+            </a>
+        </div>
+        <div class="button-wrapper">
+            <a href="https://pusdt.io/bridge%20crypto.html">
+                <img src="https://pusdt.io/images/snapedit_1726581513741.jpg" alt="Swap">
+                <span class="button-text">Swap</span>
+            </a>
+        </div>
+        <div class="button-wrapper">
+            <a href="https://pusdt.io/Contact%20Us.html">
+                <img src="https://pusdt.io/images/snapedit_1726581513741.jpg" alt="Contact Us">
+                <span class="button-text">Contact Us</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- حقل منسدل لاختيار الدولة -->
+    <select class="country-select" id="country-select">
+        <option value="all">اختر دولة</option>
+        <option value="Saudi Arabia">السعودية</option>
+        <option value="UAE">الإمارات</option>
+        <option value="Germany">ألمانيا</option>
+    </select>
+
+    <div id="giftcards-container"></div>
+
+    <!-- نافذة منبثقة للحاوية -->
+    <div class="popup-overlay"></div>
+    <div class="popup">
+        <button class="popup-close">إغلاق</button>
+        <iframe id="giftcard-form" src="/giftcards/formgiftcards.html" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        let giftCardsData = [];
+        let uaeGiftCardsData = []; // إضافة متغير جديد لبطاقات الإمارات
+        let germanyGiftCardsData = []; // إضافة متغير جديد لبطاقات ألمانيا
+
+        // جلب بيانات بطاقات السعودية
+        fetch('giftcards/giftcards_data.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // تحويل النص إلى JSON
+            })
+            .then(giftCards => {
+                giftCardsData = giftCards; // تخزين بيانات بطاقات السعودية
+                displayGiftCards(giftCardsData); // عرض جميع بطاقات الهدايا
+            })
+            .catch(error => console.error('خطأ في جلب بيانات بطاقات السعودية:', error));
+
+        // جلب بيانات بطاقات الإمارات
+        fetch('giftcards/uae_giftcards_data.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // تحويل النص إلى JSON
+            })
+            .then(giftCards => {
+                uaeGiftCardsData = giftCards; // تخزين بيانات بطاقات الإمارات
+            })
+            .catch(error => console.error('خطأ في جلب بيانات بطاقات الإمارات:', error));
+
+        // جلب بيانات بطاقات ألمانيا
+        fetch('giftcards/germany_giftcards_data.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // تحويل النص إلى JSON
+            })
+            .then(giftCards => {
+                germanyGiftCardsData = giftCards; // تخزين بيانات بطاقات ألمانيا
+            })
+            .catch(error => console.error('خطأ في جلب بيانات بطاقات ألمانيا:', error));
+
+        // دالة لعرض بطاقات الهدايا بناءً على الدولة المحددة
+        function displayGiftCards(cards) {
+            const container = document.getElementById('giftcards-container');
+            container.innerHTML = ''; // مسح المحتوى السابق
+            cards.forEach(card => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'giftcard';
+                cardDiv.innerHTML = `
+                    <img src="${card.card_image_url}" alt="${card.name}" class="card-image">
+                    <div class="card-info">
+                        <h2>${card.name}</h2>
+                        <p><strong>الفئة:</strong> ${card.category}</p>
+                        <p><strong>الوصف:</strong> ${card.description}</p>
+                        <p><strong>العملة:</strong> ${card.currency_code}</p>
+                        <p><strong>الحد الأدنى للمبلغ:</strong> ${card.min_amount} ${card.currency_code}</p>
+                        <p><strong>الحد الأقصى للمبلغ:</strong> ${card.max_amount} ${card.currency_code}</p>
+                        <p><strong>تاريخ الانتهاء:</strong> ${card.expiry_and_validity}</p>
+                        <p><strong>product_id:</strong> ${card.product_id}</p>
+                        <p><a href="${card.terms_and_conditions}" target="_blank">الشروط والأحكام</a></p>
+                        <p><a href="${card.how_to_use}" target="_blank">كيفية الاستخدام</a></p>
+                    </div>
+                    <button class="buy-now-btn" data-product-id="${card.product_id}">شراء الآن</button>
+                `;
+                container.appendChild(cardDiv);
+
+                // إضافة حدث النقر على الصورة لإظهار المعلومات والزر
+                cardDiv.querySelector('.card-image').addEventListener('click', function() {
+                    const cardInfo = cardDiv.querySelector('.card-info');
+                    const buyNowBtn = cardDiv.querySelector('.buy-now-btn');
+                    cardInfo.style.display = cardInfo.style.display === 'block' ? 'none' : 'block';
+                    buyNowBtn.style.display = buyNowBtn.style.display === 'block' ? 'none' : 'block';
+                });
+
+                // إضافة حدث النقر على زر شراء الآن لإظهار النافذة المنبثقة
+                cardDiv.querySelector('.buy-now-btn').addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const product_id = this.getAttribute('data-product-id');
+                    const cardImage = cardDiv.querySelector('.card-image').src; // احصل على رابط الصورة
+
+                    // تمرير product_id ورابط الصورة إلى النموذج في iframe
+                    const iframe = document.getElementById('giftcard-form');
+                    iframe.contentWindow.postMessage({ product_id: product_id, image_url: cardImage }, '*');
+
+                    document.querySelector('.popup').style.display = 'block';
+                    document.querySelector('.popup-overlay').style.display = 'block';
+                });
+            });
+        }
+
+        // حدث لتصفية بطاقات الهدايا بناءً على اختيار الدولة
+        document.getElementById('country-select').addEventListener('change', function() {
+            const selectedCountry = this.value;
+            if (selectedCountry === 'all') {
+                displayGiftCards(giftCardsData.concat(uaeGiftCardsData, germanyGiftCardsData)); // عرض جميع البطاقات
+            } else if (selectedCountry === 'Saudi Arabia') {
+                displayGiftCards(giftCardsData); // عرض بطاقات السعودية
+            } else if (selectedCountry === 'UAE') {
+                displayGiftCards(uaeGiftCardsData); // عرض بطاقات الإمارات
+            } else if (selectedCountry === 'Germany') {
+                displayGiftCards(germanyGiftCardsData); // عرض بطاقات ألمانيا
+            }
+        });
+
+        // إغلاق النافذة المنبثقة
+        document.querySelector('.popup-close').addEventListener('click', function() {
+            document.querySelector('.popup').style.display = 'none';
+            document.querySelector('.popup-overlay').style.display = 'none';
+        });
+        let lastScrollTop = 0; // لحفظ موضع التمرير الأخير
+const buttonContainer = document.querySelector('.button-container');
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop; // موضع التمرير الحالي
+
+    if (scrollTop > lastScrollTop) {
+        // إذا كان المستخدم يقوم بالتمرير لأسفل
+        buttonContainer.classList.add('hidden'); // إضافة صنف "hidden" لإخفاء الأزرار
+    } else {
+        // إذا كان المستخدم يقوم بالتمرير لأعلى
+        buttonContainer.classList.remove('hidden'); // إزالة صنف "hidden" لإظهار الأزرار
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // تحديث موضع التمرير الأخير
+});
+
+    </script>
+</body>
+</html>

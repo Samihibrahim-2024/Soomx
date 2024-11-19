@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <title>giftcards/en/order</title>
+    
+    <!-- Include CSS for Select2 library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: radial-gradient(circle, #5e2b7d 40%, #000000 100%);
+        }
+
+        .logo {
+            display: block;
+            margin: 20px auto;
+            width: 300px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .form-container {
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: black; /* Black background */
+            border: 2px solid black; /* 2px border in black */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.9);
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 98%; /* 90% of container width */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+        .select2-container {
+            width: 98% !important; /* 98% of container width */
+            display: inline-block; /* Add display inline-block */
+        }
+
+        .select2-container--default .select2-selection--single {
+            height: 40px; /* Field height */
+            border-radius: 20px; /* Rounded corners */
+            border: 1px solid #ccc; /* Borders */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 50px; /* Vertical text alignment */
+            padding-left: 10px; /* Padding */
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 50px; /* Arrow height */
+            right: 10px; /* Arrow position */
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5e2b7d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4c1e5a;
+        }
+
+        .currency-icon {
+            width: 20px; /* Icon size */
+            margin-left: 5px; /* Space between text and icon */
+            vertical-align: middle; /* Align icon with text */
+        }
+
+        /* Loading screen in the bottom left corner of the form */
+         #loading-screen {
+          position: fixed; /* لتثبيت الحاوية في وسط الشاشة */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* أعلى من باقي العناصر */
+    display: none; /* مخفية في البداية */*/
+        }
+
+        /* التأكد من أن الدائرة المركزية ما زالت هنا */
+        .loader {
+            border: 8px solid transparent; /* جعل الحدود شفافة */
+            border-top: 8px solid black; /* لون الجزء العلوي أسود */
+            border-right: 8px solid purple; /* لون الجزء الأيمن بنفسجي */
+            border-bottom: 8px solid transparent; /* الجزء السفلي شفاف */
+            border-left: 8px solid purple; /* لون الجزء الأيسر بنفسجي */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #countdown-text {
+            color: #333; /* لون النص */
+            font-size: 18px; /* حجم النص */
+            margin-top: 15px; /* مسافة فوق النص */
+        }
+.button-container {
+    text-align: center; /* توسيط النص داخل الحاوية */
+    margin-top: 20px; /* إضافة مسافة من الأعلى إذا لزم الأمر */
+}
+
+
+.back-button {
+    width: 20%; /* تحديد عرض الزر بنسبة 50% */
+    padding: 10px; /* إضافة padding لجعل الزر أكبر */
+    font-size: 16px; /* ضبط حجم النص داخل الزر */
+    background-color: #4CAF50; /* لون الخلفية */
+    color: white; /* لون النص */
+    border: none; /* إزالة الحدود الافتراضية */
+    border-radius: 5px; /* إضافة زوايا مدورة */
+    cursor: pointer; /* تغيير شكل المؤشر عند المرور فوق الزر */
+}
+
+.back-button:hover {
+    background-color: #45a049; /* تغيير لون الخلفية عند التمرير فوق الزر */
+}
+
+    </style>
+</head>
+<body>
+    <img src="https://pusdt.io/images/logo.jpg" alt="Logo" class="logo">
+<div class="button-container">
+    <button id="back-button" class="back-button">Back</button>
+</div>
+
+
+    <div class="form-container">
+        <label for="card-name">Card Name:</label>
+        <input type="text" id="card-name" value="" readonly>
+        
+        <label for="product-id"></label>
+        <input type="hidden" id="product-id" value="">
+
+        <label for="amount">Select Amount:</label>
+        <div id="amount-container">
+            <select id="amount" name="amount">
+                <!-- Values will be added based on passed data -->
+            </select>
+            <input type="number" id="custom-amount" placeholder="MAX 5000" style="display: none;">
+        </div>
+
+        <label for="payment-method">Select Payment Method:</label>
+        <select id="payment-method" class="select2">
+            <option value="SOL">SOL (Mainnet) <img src="https://trocador.app/static/img/icons/sol.svg" class="currency-icon" alt="SOL"></option>
+            <option value="TRX">TRX (Mainnet) <img src="https://trocador.app/static/img/icons/trx.svg" class="currency-icon" alt="TRX"></option>
+            <option value="ETH">ETH (Mainnet) <img src="https://trocador.app/static/img/icons/eth.svg" class="currency-icon" alt="ETH"></option>
+            <option value="BTC">BTC (Mainnet) <img src="https://trocador.app/static/img/icons/btc.svg" class="currency-icon" alt="BTC"></option>
+            <option value="USDT_SOL">USDT (SOL) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+            <option value="USDT_TRC20">USDT (TRC20) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+            <option value="USDT_ETH">USDT (ETH) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+            <option value="USDT_BEP20">USDT (BEP20) <img src="https://trocador.app/static/img/icons/usdt.svg" class="currency-icon" alt="USDT"></option>
+        </select>
+
+        <label for="email">Email to receive card details:</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <button type="button" id="submit-button">Submit Request</button>
+    </div>
+
+    <!-- New instructions section -->
+    <div class="form-container" style="margin-top: 15px;"> <!-- Add margin here -->
+        <h2>Instructions</h2>
+        <p>1- After selecting the card, please fill in the form with the amount, choose a payment currency, and enter your email address.</p>
+        <p>2- Card details will be sent to your email (please verify your email before proceeding with the purchase to avoid sending card details to the wrong email address).</p>
+        <p>3- After filling out the form and submitting the request, we will process your request and you will be redirected to the payment page of the card provider (keep the request ID for any issues). You can directly contact the provider 24/7 via Telegram @TrocadorSupportBot in English.</p>
+        <p>4- We do not keep any of your funds. The process is automatic and does not require registration.</p>
+        <p>5- Please verify the currency and network before sending funds, e.g., (SOL (Mainnet)) refers to Solana on the Solana Mainnet.</p>
+        <p>6- Why does everyone trust us? We provide a service to find the best and most reliable card providers.</p>
+        <p>7- Do we charge extra fees for our services? No, we only receive commissions through our provider partnership program, and we do not charge users additional fees.</p>
+
+<p>To contact us directly, you can visit the <strong><a href="https://pusdt.io/contactus" target="_blank">Contact Us</a></strong> section.</p>
+    </div>
+
+    <div id="loading-screen" style="display: none;">
+        <div class="loader"></div>
+        <p id="countdown-text">You will be redirected to the payment link in <span id="countdown">30</span> seconds.</p>
+    </div>
+
+    <!-- Include JavaScript for Select2 library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#payment-method').select2();
+    });
+    document.getElementById('back-button').addEventListener('click', function() {
+    window.history.back();
+});
+
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

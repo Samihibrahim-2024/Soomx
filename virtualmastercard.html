@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <title>virtual mastercard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <style>
+body {
+    font-family: Arial, sans-serif; /* تحديد خط النص */
+    padding: 20px; /* إضافة مسافة داخلية للصفحة */
+    background: radial-gradient(circle, #5e2b7d 40%, #000000 100%); /* تدرج دائري يركز على اللون المختلط */
+    overflow-x: hidden; /* يمنع ظهور شريط التمرير العرضي */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* لتوسيع العناصر إلى المركز */
+    align-items: center;
+    padding: 10px; /* يمكنك تعديل المساحة من حول العناصر */
+}
+        @media (max-width: 740px) {
+    .button-container {
+     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* إنشاء أعمدة ديناميكية */
+    gap: 10px; /* المسافة بين الأزرار */
+    }
+}
+
+.nav-item a {
+    color: white; /* لون النص */
+    font-weight: bold; /* جعل النص عريضًا */
+    text-decoration: none; /* إزالة الخط السفلي */
+    padding: 10px 15px; /* إضافة مساحة حول النص */
+    transition: background-color 0.3s; /* إضافة تأثير انتقال سلس */
+    padding: 12px 20px; /* تعديل الحشو */
+}
+
+.nav-item a:hover {
+    background-color: black; /* لون خلفية بنفسجي عند التمرير */
+    color: white; /* الحفاظ على لون النص الأبيض */
+}
+
+.separator {
+    margin: 0 10px; /* مساحة حول السطر العمودي */
+    color: white; /* لون السطر العمودي */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    gap: 10px;
+}
+
+
+.box {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px; /* حواف دائرية */
+    padding: 20px;
+    font-size: 18px;
+    width: calc(51% - 5px);
+    height: 349px;
+    margin: 0 auto;
+    border: 5px solid black; /* إطار بنفسجي */
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+}
+
+.box:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.purchase-container {
+    width: 100%;  /* اجعل العرض 100% لتتناسب مع box */
+    height: auto;
+    padding: 20px; /* مسافة داخلية */
+    margin: 20px 0; /* مسافة خارجية */
+    border-radius: 15px; /* حواف دائرية */
+        box-sizing: border-box; /* تأكد من احتساب الحشوة والهامش داخل العرض */
+
+}
+
+
+@media (max-width: 740px) {
+    .purchase-container {
+        width: 100%; /* اجعل العرض 100% */
+        padding: 10px; /* ضبط الحشوة المناسبة */
+        margin: 0; /* إزالة الهوامش لتفادي أي مشاكل */
+    }
+}
+
+
+.buy-button {
+    background-color: black; /* لون زر الشراء */
+    color: white;
+    border: 2px solid white; /* إطار أبيض */
+    border-radius: 15px; /* حواف دائرية */
+    padding: 15px 30px; /* تكبير حجم الزر */
+    cursor: pointer;
+    font-size: 18px; /* حجم الخط */
+    margin-top: 10px; /* مسافة فوق الزر */
+    transition: all 0.3s ease; /* تأثير التحويل السلس */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* وهج خفيف */
+}
+
+.buy-button:hover {
+    background-color: #555; /* لون الزر عند التحويم */
+    transform: scale(1.05); /* تكبير الزر عند التحويم */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 1); /* زيادة الوهاج عند التحويم */
+}
+
+.box.transparent {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    margin: -20px auto 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.box.transparent img {
+    margin-top: 2px; /* تقليل المسافة بين النص والصورة */
+}
+
+.box:nth-of-type(2) img {
+    width: 400px; /* تغيير عرض الصورة للحاوية الثانية */
+    height: 225px; /* تغيير ارتفاع الصورة للحاوية الثانية */
+}
+
+.box.large {
+    height: auto;
+    width: 400px;
+    border-radius: 15px;
+    background-color: #444;
+    color: white;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.box img {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.field-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.field {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer; /* تغيير مؤشر الماوس إلى يد */
+}
+
+.half-width {
+    width: 90%;
+}
+
+.select2-container--default .select2-selection {
+    border-radius: 15px !important; /* تأكيد الحواف الدائرية */
+    height: 40px; /* ضبط الارتفاع */
+}
+
+.select2-container--default .select2-selection__arrow {
+    border-radius: 0 15px 15px 0 !important; /* حواف دائرية للسهم */
+}
+
+.payment-icon {
+    width: 20px !important; /* عرض الأيقونة */
+    height: 20px !important; /* ارتفاع الأيقونة */
+    margin-right: 8px !important; /* مسافة بين الأيقونة والنص */
+    vertical-align: middle !important; /* محاذاة الأيقونة مع النص */
+    margin-right: 5px !important; /* تعديل المسافة بين الأيقونة والنص */
+}
+
+/* تغيير مؤشر الماوس إلى الافتراضي لحقل البريد */
+input[type="email"] {
+    cursor: default; /* تعيين مؤشر الماوس إلى الافتراضي */
+}
+
+.email-warning {
+    font-size: 12px; /* حجم النص صغير */
+    color: #ff0000; /* لون النص (يمكنك تغييره) */
+    margin-top: 5px; /* مسافة بسيطة بين الحقل والتنبيه */
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-right: 40px;
+}
+
+
+.text-box {
+    background-color:#4a4a4a ;
+    color:#fff;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 5px 0; /* هذه السطر موجود حالياً */
+    margin-top: 10px; /* إضافة هذا السطر لإنزال العنصر بمقدار 5 بكسل */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 70px;
+    width: calc(100% - 20px);
+    font-weight: bold;
+    line-height: 1.2;
+    font-size: 14px;
+    border: 2px solid black; /* إضافة إطار أسود */
+}
+/* Media query for small screens */
+@media (max-width: 768px) {
+    .text-container {
+        margin-right: 0; /* إزالة المساحة اليمنى */
+    }
+
+    .text-box {
+        width: 100%; /* استخدام العرض الكامل */
+        height: auto; /* تغيير الارتفاع ليكون تلقائيًا */
+    }
+}
+/* الحقول الجديدة */
+.wide-field-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.wide-field {
+    width: 90%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin: 10px;
+    font-size: 18px;
+}
+
+.faq-container {
+    width: 90%; /* عرض كامل للحاوية */
+    margin: 20px auto; /* توسيط الحاوية */
+    padding: 20px; /* إضافة مسافة داخلية */
+    background-color: #444; /* لون خلفية أبيض */
+    border-radius: 15px; /* حواف دائرية */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل */
+    color: #fff; /* تغيير لون النص إلى أسود */
+}
+
+.faq-title {
+    font-size: 24px; /* حجم عنوان الأسئلة الشائعة */
+    margin-bottom: 20px; /* مسافة أسفل العنوان */
+    text-align: center; /* توسيط العنوان */
+}
+
+.faq-item {
+    margin-bottom: 15px; /* مسافة بين العناصر */
+    cursor: pointer; /* تغيير شكل المؤشر */
+}
+
+.faq-answer {
+    display: none; /* إخفاء الإجابات افتراضيًا */
+    margin-top: 10px; /* مسافة فوق الإجابة */
+    background-color: #000; /* لون خلفية للإجابة */
+    padding: 10px; /* مسافة داخل الإجابة */
+    border-radius: 5px; /* حواف دائرية للإجابة */
+    border: 1px solid #ccc; /* إطار للإجابة */
+}
+
+@media (max-width: 740px) {
+        body {
+        overflow-x: hidden; /* منع شريط التمرير الجانبي */
+ 
+    }
+    .container {
+        display: grid;
+        grid-template-columns: 1fr; /* عمود واحد */
+        justify-items: center; /* توسيط العناصر في الحاوية */
+        width: 100%; /* اجعل عرض الحاوية 100% */
+
+    }
+
+    .box {
+        width: 90%; /* اجعل عرض البوكسات 90% */
+        max-width: 300px; /* حد أقصى لعرض البوكسات */
+        overflow-x: hidden; /* منع شريط التمرير الجانبي */
+
+    }
+}
+
+
+
+
+    </style>
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.querySelector('.faq-answer');
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</head>
+<body>
+<div class="button-container">
+    <span class="nav-item"><a href="https://pusdt.io">Home</a></span>
+    <span class="separator">|</span>
+    <span class="nav-item"><a href="https://pusdt.io/virtualmastercard">Virtual MasterCard</a></span>
+    <span class="separator">|</span>
+    <span class="nav-item"><a href="https://pusdt.io/bridge">Bridge Crypto</a></span>
+    <span class="separator">|</span>
+    <span class="nav-item"><a href="https://pusdt.io/giftcards">Gift Cards</a></span>
+    <span class="separator">|</span>
+    <span class="nav-item"><a href="https://pusdt.io/contactus">Contact Us</a></span>
+</div>
+
+
+    <div class="container">
+        <div class="box">
+            <div class="purchase-container" id="purchase-container">
+                <div class="label purchase-title">Choose your card's amount(USD)</div>
+                <select class="field full-width" id="amount" name="amount">
+                <option value="10">10</option>
+                <option value="25">25</option>
+    <option value="50">50</option>USD
+    <option value="100">100</option>
+    <option value="150">150</option>
+    <option value="250">250</option>
+    <option value="500">500</option>
+    <option value="750">750</option>
+    <option value="1000">1000</option>
+</select>
+
+
+             <div class="label purchase-title">Choose your Method of Payment</div>
+<div class="field-container">
+    <!-- استبدال الحقل الفارغ بـ select لعرض خيارات الدفع مع الأيقونات -->
+    <select class="field half-width" id="payment-method">
+          <option value="" disabled selected>Select Payment Method</option>
+        <option value="USDT (TRC20)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (TRC20)</option>
+        <option value="USDT (SOL)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (SOL)</option>
+        <option value="USDT (ERC20)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (ERC20)</option>
+        <option value="USDT (Polygon)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (Polygon)</option>
+        <option value="USDT (BSC)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (BSC)</option>
+        <option value="USDT (Toncoin)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (Toncoin)</option>
+        <option value="USDC (SOL)" data-icon="https://trocador.app/static/img/icons/usdc.svg">USDC (SOL)</option>
+        <option value="BTC (Mainnet)" data-icon="https://trocador.app/static/img/icons/btc.svg">BTC (Mainnet)</option>
+        <option value="TRX (Mainnet)" data-icon="https://trocador.app/static/img/icons/trx.svg">TRX (Mainnet)</option>
+        <option value="SOL (Mainnet)" data-icon="https://trocador.app/static/img/icons/sol.svg">SOL (Mainnet)</option>
+        <option value="ETH (Mainnet)" data-icon="https://trocador.app/static/img/icons/eth.svg">ETH (Mainnet)</option>
+        <option value="TON (Mainnet)" data-icon="https://trocador.app/static/img/icons/ton.svg">TON (Mainnet)</option>        
+
+    </select>
+     </div>
+
+
+     <div class="label purchase-title">Enter your email to receive card details</div>
+<input type="email" placeholder="Insert your email" class="field full-width" id="email" />
+    <div class="email-warning">
+        Double-check your email address before completing your purchase <br>
+        to ensure your card details reach you securely.
+    </div>
+
+                 <!-- زر الشراء -->
+<button class="buy-button" id="buy-button">Buy your card</button>
+<span id="countdown" style="margin-left: 10px; font-size: 14px; display: none;"></span>
+<span id="message" style="margin-left: 10px; font-size: 14px; display: none;">You will be redirected to the payment page.</span>
+
+
+            </div>
+        </div>
+        <div class="box transparent">
+            <h2>MasterCard Crypto Cards</h2>
+            <p>Buy virtual prepaid cards using your preferred coin and live on crypto!</p>
+            <img src="https://pusdt.io/images/mastercard/m2.jpg" alt="MasterCard Image" />
+        </div>
+        <div class="box large">
+            International Prepaid Cards<br>
+            Up to $1000 per card, but no limit on the number of cards you can buy. Our cards are issued with a one-time fee of 3% of the amount plus $2, depending on the provider. Transactions in different currencies than that of the card may incur a 2% currency conversion fee by the card provider.<br><br>
+            No Document Upload Needed<br>
+            You just need to provide an e-mail, phone and a valid address when activating it, then import it to your mobile wallet if you want. It's perfect for gifts or for easily spending a bit of your hard-earned crypto gains!<br><br>
+            Usually Accepted by:<br>
+            <div style="display: flex; gap: 10px;">
+                <img src="https://trocador.app/static/img/Google_Pay_Logo.svg" alt="Google Pay Logo" />
+                <img src="https://trocador.app/static/img/Apple_Pay_Logo.svg" alt="Apple Pay Logo" />
+            </div>
+        </div>
+
+        <div class="text-container">
+            <div class="text-box">1. Choose your card's currency, amount, which crypto you wish to use as payment, fill-in your email and confirm you're not from a country in the chosen card provider's restricted list. Make sure you've read the FAQ. Then click 'Buy your Card'.</div>
+            <div class="text-box">2. Complete your payment sending the exact amount shown of the crypto you selected. Make sure you send on the correct network.</div>
+            <div class="text-box">3. After your payment is confirmed you'll receive an email with your card's activation link and redeem code. Check your 'Spam' folder if necessary. Be aware that the email may take a few hours to be sent, as it depends on our card provider.</div>
+            <div class="text-box">4. Activate your card on the link sent using your code, be aware the card provider's website may not work properly with Brave shield or AdBlockers turned on. Fill in a valid address and a phone number if asked. No need to upload any documents, but when importing your card to mobile wallets or paying online be sure to use the same address provided here.</div>
+            <div class="text-box">5. You'll see your card details. Import it into a mobile wallet if you desire to use it for in person contactless NFC payments. If your card details don't appear it may be because you are using a VPN blocked by the card provider, try disabling it or choosing another one.</div>
+
+        </div>
+    </div>
+
+    <div class="faq-container">
+        <div class="faq-title">Prepaid Cards F.A.Q.</div>
+        <div class="faq-item" onclick="toggleAnswer(this)">
+            <strong>What are the Restricted Countries?</strong>
+            <div class="faq-answer">
+                You cannot use our cards if you are from a restricted or sanctioned country (Russia, Cuba, Venezuela, etc.). The full list for each card provider can be seen in the link below:<br>
+<a href="https://pusdt.io/mastercard/Countries">List of Restricted/Allowed Countries by Provider 🔗</a>
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleAnswer(this)">
+            <strong>Where are these cards accepted? Where aren't they accepted?</strong>
+            <div class="faq-answer">
+                Our prepaid cards are either Mastercard or Visa. They can usually be imported into SamsungPay, GooglePay or ApplePay and are accepted in most online and physical establishments, but this can vary depending on the card provider, country, user device and merchant restrictions.<br>
+                This kind of card is not accepted by vendors that require 3DS authentication (vendors that check several factors to authenticate a purchase, including the user's location and whether the personal data provided during the transaction matches the bank's records). They're also not accepted by merchants that refuse gift cards and prepaid cards.<br>
+                While in our tests these cards worked very well, we unfortunately can't guarantee their acceptance in any specific case. Depending on many factors, a card could be rejected by GooglePay only to be used without issues with SamsungPay, as an example. If in doubt, we recommend you try a smaller value card first to test its acceptance in your area. You can also check the Restricted Countries List for tips of where each card provider is better accepted or not.
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleAnswer(this)">
+            <strong>Do I need to go through any kind of KYC Verification?</strong>
+            <div class="faq-answer">
+                This service does not require any personal document upload. You need to provide a name, phone number and address upon the card generation, but there's no need to upload any documents to verify this info.<br>
+                Make sure the address used for the card's activation is the same one used when filling in the card's billing information at stores or apps like GooglePay. When buying online usually the delivery address can be different from the card's billing address.
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleAnswer(this)">
+            <strong>How does it work?</strong>
+            <div class="faq-answer">
+                You just need to select a currency, choose a card provider, amount and with which crypto you want to pay. Then provide a valid e-mail, where you'll receive the card's details. Make sure you're not a resident in one of the Restricted Countries and that you've read this FAQ, then click on the 'Buy Your Card' button. A crypto address will be generated, to which you should send the exact amount displayed in order to purchase and load the balance on your card.<br>
+                Trocador will work as a conduit system, connecting you and your chosen card provider. After the platform detects the payment, they will send you by e-mail an activation code and a link where you'll fill some basic information in order to activate the card. After activation you'll receive another email with a link which you can use to check its number, current balance and purchase history. From there, you can import your card to apps such as SamsungPay, GooglePay and ApplePay and then use it on your phone through NFC technology to pay local stores.<br>
+                If you encounter any issues, you can contact the intermediary provider directly. Their support team is available 24/7. You can reach them via Telegram at <a href="https://t.me/TrocadorSupportBot" target="_blank">https://t.me/TrocadorSupportBot</a> or by email at <a href="mailto:mail@trocador.app">mail@trocador.app</a>.
+            </div>
+        </div>
+    </div>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // تهيئة Select2 مع الأيقونات
+    const paymentMethodSelect = document.getElementById('payment-method');
+    $(paymentMethodSelect).select2({
+        templateResult: formatState,
+        templateSelection: formatState,
+        minimumResultsForSearch: Infinity // إخفاء شريط البحث إذا لم يكن هناك حاجة 
+    });
+
+    // تعيين الخيار الأول
+    paymentMethodSelect.value = 'USDT (TRC20)'; // تغيير القيمة عند تحميل الصفحة
+
+    // دالة لتنسيق الأيقونات والنصوص
+    function formatState(state) {
+        if (!state.id) {
+            return state.text; // إذا كانت القيمة فارغة، إرجاع النص فقط
+        }
+        var baseUrl = $(state.element).data('icon'); // الحصول على رابط الأيقونة
+        var $state = $(
+            '<span><img src="' + baseUrl + '" class="payment-icon" /> ' + state.text + '</span>'
+        );
+        return $state;
+    }
+
+    // دالة لإرسال الطلب عند الضغط على زر "Buy your card"
+    document.querySelector('.buy-button').addEventListener('click', async function(event) {
+        event.preventDefault(); // يمنع الإرسال الافتراضي
+        
+    // إظهار الرسالة بجانب الزر
+        $('#message').show();
+
+        // بدء العد التنازلي
+        let countdownValue = 30; // عدد الثواني
+        $('#countdown').text(`${countdownValue} seconds`).show();
+
+        const countdownInterval = setInterval(function() {
+            countdownValue--;
+            $('#countdown').text(`${countdownValue} seconds`);
+            if (countdownValue <= 0) {
+                clearInterval(countdownInterval);
+                $('#countdown').hide(); // إخفاء العد التنازلي
+            }
+        }, 1000);
+
+        // جمع القيم من الحقول
+        const provider = "MyPrepaidCenter";
+        const currency_code = "USD";
+        const ticker_from = paymentMethodSelect.value.split(' (')[0];
+        const network_from = paymentMethodSelect.value.match(/\(([^)]+)\)/)[1];
+        const amount = document.getElementById('amount').value;
+        const email = document.querySelector('input[type="email"]').value; // تأكد من أن هذا يتطابق مع المعرف المضاف
+
+        const params = {
+            provider,
+            currency_code,
+            ticker_from,
+            network_from,
+            amount,
+            email,
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        const requestUrl = `https://proxy-server-t4bd.onrender.com/api/order_prepaidcard?${queryString}`;
+
+        try {
+            const response = await fetch(requestUrl);
+            const data = await response.json();
+
+            if (data.trade_id) {
+                window.open(`https://trocador.app/prepaidcards/checkout/${data.trade_id}`, '_blank');
+            } else {
+                alert('فشل في معالجة الطلب');
+            }
+        } catch (error) {
+            console.error('خطأ في الطلب:', error);
+            alert('حدث خطأ في إرسال الطلب');
+        }
+    });
+});
+</script>
+
+
+
+
+</body>
+</html>
