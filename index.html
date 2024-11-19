@@ -13,7 +13,6 @@
             color: white;
             direction: rtl; /* لجعل النصوص تظهر من اليمين لليسار */
             margin: 0; /* إزالة الهوامش التلقائية */
-            padding: 0; /* إزالة الحشو التلقائي */
         }
 
         .button-container {
@@ -214,26 +213,27 @@ button.buy-button {
     text-align: right;
 }
 .site-name-container {
-            display: flex;
-            justify-content: center; /* لتوسيط النص أفقيًا */
-            align-items: center; /* لتوسيط النص عموديًا */
-            height: 100vh; /* تحديد ارتفاع الحاوية ليملأ الصفحة */
-            margin-top: 40px;
-        }
+    display: flex;
+    justify-content: center; /* لتوسيط النص أفقيًا */
+    align-items: center; /* لتوسيط النص عموديًا */
+    height: 20vh; /* تحديد ارتفاع الحاوية ليملأ جزء من الصفحة فقط */
+    margin-top: 0; /* إزالة الهامش العلوي */
+    margin-bottom: 0; /* إزالة الهامش السفلي */
+}
 
-        .site-name {
-            font-size: 60px;
-            font-weight: bold;
-            color: #8a2be2; /* اللون البنفسجي */
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-shadow: 
-                0 0 10px white, /* تأثير الضوء الأبيض */
-                0 0 20px white, 
-                0 0 30px #8a2be2, /* تأثير البنفسجي */
-                0 0 40px #8a2be2, 
-                0 0 50px #8a2be2; /* تعتيم اللون البنفسجي */
-        }
+.site-name {
+    font-size: 60px;
+    font-weight: bold;
+    color: #8a2be2; /* اللون البنفسجي */
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 
+        0 0 10px white, /* تأثير الضوء الأبيض */
+        0 0 20px white, 
+        0 0 30px #8a2be2, /* تأثير البنفسجي */
+        0 0 40px #8a2be2, 
+        0 0 50px #8a2be2; /* تعتيم اللون البنفسجي */
+}
     </style>
 </head>
 <body>
