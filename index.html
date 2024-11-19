@@ -187,7 +187,31 @@
             0% { transform: translateX(0) translateY(0); }
             100% { transform: translateX(calc(-50% + 20px)) translateY(calc(-50% + 20px)); }
         }
-        
+        /* إضافة خاصية لتحديد اتجاه النصوص من اليمين لليسار */
+body, .container, .box, .button-container {
+    direction: rtl;
+}
+
+/* تغيير تنسيق النصوص داخل الحقول والقوائم لتكون محاذاة لليمين */
+input, select, button {
+    text-align: right;
+}
+
+/* تغيير تنسيق العناوين لتكون محاذاة لليمين */
+h1, h2, h3, .label {
+    text-align: right;
+}
+
+/* محاذاة الأزرار بشكل صحيح */
+button.buy-button {
+    text-align: right;
+}
+
+/* محاذاة الفقرات والأسئلة داخل الـ FAQ */
+.faq-item {
+    text-align: right;
+}
+
     </style>
 </head>
 <body>
