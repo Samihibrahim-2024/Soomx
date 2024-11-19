@@ -326,133 +326,117 @@ input[type="email"] {
     </script>
 </head>
 <body>
-<div class="button-container">
-    <span class="nav-item"><a href="https://pusdt.io">Home</a></span>
-    <span class="separator">|</span>
-    <span class="nav-item"><a href="https://pusdt.io/virtualmastercard">Virtual MasterCard</a></span>
-    <span class="separator">|</span>
-    <span class="nav-item"><a href="https://pusdt.io/bridge">Bridge Crypto</a></span>
-    <span class="separator">|</span>
-    <span class="nav-item"><a href="https://pusdt.io/giftcards">Gift Cards</a></span>
-    <span class="separator">|</span>
-    <span class="nav-item"><a href="https://pusdt.io/contactus">Contact Us</a></span>
-</div>
-
-
+    <div class="button-container">
+        <span class="nav-item"><a href="https://soomx.com">الصفحة الرئيسية</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://soomx.com/virtualmastercard">بطاقة ماستر كارد الافتراضية</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://soomx.com/bridge">جسر العملات الرقمية</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://soomx.com/giftcards">بطاقات الهدايا</a></span>
+        <span class="separator">|</span>
+        <span class="nav-item"><a href="https://soomx.com/contactus">اتصل بنا</a></span>
+    </div>
+    
     <div class="container">
         <div class="box">
             <div class="purchase-container" id="purchase-container">
-                <div class="label purchase-title">Choose your card's amount(USD)</div>
+                <div class="label purchase-title">اختر مبلغ البطاقة (بالدولار الأمريكي)</div>
                 <select class="field full-width" id="amount" name="amount">
-                <option value="10">10</option>
-                <option value="25">25</option>
-    <option value="50">50</option>USD
-    <option value="100">100</option>
-    <option value="150">150</option>
-    <option value="250">250</option>
-    <option value="500">500</option>
-    <option value="750">750</option>
-    <option value="1000">1000</option>
-</select>
-
-
-             <div class="label purchase-title">Choose your Method of Payment</div>
-<div class="field-container">
-    <!-- استبدال الحقل الفارغ بـ select لعرض خيارات الدفع مع الأيقونات -->
-    <select class="field half-width" id="payment-method">
-          <option value="" disabled selected>Select Payment Method</option>
-        <option value="USDT (TRC20)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (TRC20)</option>
-        <option value="USDT (SOL)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (SOL)</option>
-        <option value="USDT (ERC20)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (ERC20)</option>
-        <option value="USDT (Polygon)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (Polygon)</option>
-        <option value="USDT (BSC)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (BSC)</option>
-        <option value="USDT (Toncoin)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (Toncoin)</option>
-        <option value="USDC (SOL)" data-icon="https://trocador.app/static/img/icons/usdc.svg">USDC (SOL)</option>
-        <option value="BTC (Mainnet)" data-icon="https://trocador.app/static/img/icons/btc.svg">BTC (Mainnet)</option>
-        <option value="TRX (Mainnet)" data-icon="https://trocador.app/static/img/icons/trx.svg">TRX (Mainnet)</option>
-        <option value="SOL (Mainnet)" data-icon="https://trocador.app/static/img/icons/sol.svg">SOL (Mainnet)</option>
-        <option value="ETH (Mainnet)" data-icon="https://trocador.app/static/img/icons/eth.svg">ETH (Mainnet)</option>
-        <option value="TON (Mainnet)" data-icon="https://trocador.app/static/img/icons/ton.svg">TON (Mainnet)</option>        
-
-    </select>
-     </div>
-
-
-     <div class="label purchase-title">Enter your email to receive card details</div>
-<input type="email" placeholder="Insert your email" class="field full-width" id="email" />
-    <div class="email-warning">
-        Double-check your email address before completing your purchase <br>
-        to ensure your card details reach you securely.
-    </div>
-
-                 <!-- زر الشراء -->
-<button class="buy-button" id="buy-button">Buy your card</button>
-<span id="countdown" style="margin-left: 10px; font-size: 14px; display: none;"></span>
-<span id="message" style="margin-left: 10px; font-size: 14px; display: none;">You will be redirected to the payment page.</span>
-
-
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>USD
+                    <option value="100">100</option>
+                    <option value="150">150</option>
+                    <option value="250">250</option>
+                    <option value="500">500</option>
+                    <option value="750">750</option>
+                    <option value="1000">1000</option>
+                </select>
+    
+                <div class="label purchase-title">اختر طريقة الدفع</div>
+                <div class="field-container">
+                    <select class="field half-width" id="payment-method">
+                        <option value="" disabled selected>اختر طريقة الدفع</option>
+                        <option value="USDT (TRC20)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (TRC20)</option>
+                        <option value="USDT (SOL)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (SOL)</option>
+                        <option value="USDT (ERC20)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (ERC20)</option>
+                        <option value="USDT (Polygon)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (Polygon)</option>
+                        <option value="USDT (BSC)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (BSC)</option>
+                        <option value="USDT (Toncoin)" data-icon="https://trocador.app/static/img/icons/usdt.svg">USDT (Toncoin)</option>
+                        <option value="USDC (SOL)" data-icon="https://trocador.app/static/img/icons/usdc.svg">USDC (SOL)</option>
+                        <option value="BTC (Mainnet)" data-icon="https://trocador.app/static/img/icons/btc.svg">BTC (Mainnet)</option>
+                        <option value="TRX (Mainnet)" data-icon="https://trocador.app/static/img/icons/trx.svg">TRX (Mainnet)</option>
+                        <option value="SOL (Mainnet)" data-icon="https://trocador.app/static/img/icons/sol.svg">SOL (Mainnet)</option>
+                        <option value="ETH (Mainnet)" data-icon="https://trocador.app/static/img/icons/eth.svg">ETH (Mainnet)</option>
+                        <option value="TON (Mainnet)" data-icon="https://trocador.app/static/img/icons/ton.svg">TON (Mainnet)</option>
+                    </select>
+                </div>
+    
+                <div class="label purchase-title">أدخل بريدك الإلكتروني لاستلام تفاصيل البطاقة</div>
+                <input type="email" placeholder="أدخل بريدك الإلكتروني" class="field full-width" id="email" />
+                <div class="email-warning">
+                    تحقق من صحة بريدك الإلكتروني قبل إتمام عملية الشراء <br>
+                    لضمان وصول تفاصيل بطاقتك بأمان.
+                </div>
+    
+                <!-- زر الشراء -->
+                <button class="buy-button" id="buy-button">شراء بطاقتك</button>
+                <span id="countdown" style="margin-left: 10px; font-size: 14px; display: none;"></span>
+                <span id="message" style="margin-left: 10px; font-size: 14px; display: none;">سيتم توجيهك إلى صفحة الدفع.</span>
             </div>
         </div>
+    
         <div class="box transparent">
-            <h2>MasterCard Crypto Cards</h2>
-            <p>Buy virtual prepaid cards using your preferred coin and live on crypto!</p>
-            <img src="https://pusdt.io/images/mastercard/m2.jpg" alt="MasterCard Image" />
+            <h2>بطاقات ماستر كارد للعملات الرقمية</h2>
+            <p>اشترِ بطاقات مدفوعة مسبقًا باستخدام العملة المفضلة لديك وعيش في عالم العملات الرقمية!</p>
+            <img src="https://pusdt.io/images/mastercard/m2.jpg" alt="صورة ماستر كارد" />
         </div>
+    
         <div class="box large">
-            International Prepaid Cards<br>
-            Up to $1000 per card, but no limit on the number of cards you can buy. Our cards are issued with a one-time fee of 3% of the amount plus $2, depending on the provider. Transactions in different currencies than that of the card may incur a 2% currency conversion fee by the card provider.<br><br>
-            No Document Upload Needed<br>
-            You just need to provide an e-mail, phone and a valid address when activating it, then import it to your mobile wallet if you want. It's perfect for gifts or for easily spending a bit of your hard-earned crypto gains!<br><br>
-            Usually Accepted by:<br>
+            بطاقات الدفع الدولية<br>
+            حتى $1000 لكل بطاقة، ولكن لا يوجد حد لعدد البطاقات التي يمكنك شراؤها. يتم إصدار بطاقاتنا مقابل رسوم لمرة واحدة بنسبة 3% من المبلغ بالإضافة إلى $2، حسب المزود. المعاملات بعملات مختلفة عن عملة البطاقة قد تتطلب رسوم تحويل عملة بنسبة 2% من مزود البطاقة.<br><br>
+            لا حاجة لتحميل مستندات<br>
+            فقط قدم بريدك الإلكتروني، ورقم الهاتف، وعنوانًا صالحًا عند تفعيلها، ثم قم باستيرادها إلى محفظتك على الهاتف إذا أردت. إنها مثالية للهدايا أو لإنفاق جزء من أرباحك من العملات الرقمية!<br><br>
+            مقبولة عادة في:<br>
             <div style="display: flex; gap: 10px;">
-                <img src="https://trocador.app/static/img/Google_Pay_Logo.svg" alt="Google Pay Logo" />
-                <img src="https://trocador.app/static/img/Apple_Pay_Logo.svg" alt="Apple Pay Logo" />
+                <img src="https://trocador.app/static/img/Google_Pay_Logo.svg" alt="شعار جوجل باي" />
+                <img src="https://trocador.app/static/img/Apple_Pay_Logo.svg" alt="شعار أبل باي" />
             </div>
         </div>
-
+    
         <div class="text-container">
-            <div class="text-box">1. Choose your card's currency, amount, which crypto you wish to use as payment, fill-in your email and confirm you're not from a country in the chosen card provider's restricted list. Make sure you've read the FAQ. Then click 'Buy your Card'.</div>
-            <div class="text-box">2. Complete your payment sending the exact amount shown of the crypto you selected. Make sure you send on the correct network.</div>
-            <div class="text-box">3. After your payment is confirmed you'll receive an email with your card's activation link and redeem code. Check your 'Spam' folder if necessary. Be aware that the email may take a few hours to be sent, as it depends on our card provider.</div>
-            <div class="text-box">4. Activate your card on the link sent using your code, be aware the card provider's website may not work properly with Brave shield or AdBlockers turned on. Fill in a valid address and a phone number if asked. No need to upload any documents, but when importing your card to mobile wallets or paying online be sure to use the same address provided here.</div>
-            <div class="text-box">5. You'll see your card details. Import it into a mobile wallet if you desire to use it for in person contactless NFC payments. If your card details don't appear it may be because you are using a VPN blocked by the card provider, try disabling it or choosing another one.</div>
-
+            <div class="text-box">1. اختر عملة بطاقتك، المبلغ، العملة الرقمية التي ترغب في استخدامها كدفع، ثم قدم بريدك الإلكتروني وتأكد من أنك لست من دولة في قائمة الدول المحظورة لمزود البطاقة. تأكد من قراءة الأسئلة الشائعة. ثم انقر على 'شراء بطاقتك'.</div>
+            <div class="text-box">2. أكمل الدفع بإرسال المبلغ الدقيق بالعملة الرقمية التي اخترتها. تأكد من إرسالها على الشبكة الصحيحة.</div>
+            <div class="text-box">3. بعد تأكيد الدفع، ستتلقى بريدًا إلكترونيًا يحتوي على رابط تفعيل البطاقة ورمز الاسترداد. تحقق من مجلد 'البريد العشوائي' إذا لزم الأمر. يرجى العلم أن البريد قد يستغرق بضع ساعات ليتم إرساله، حيث يعتمد على مزود البطاقة.</div>
+            <div class="text-box">4. قم بتفعيل بطاقتك عبر الرابط المرسل باستخدام رمزك. كن حذرًا، قد لا يعمل موقع مزود البطاقة بشكل صحيح مع متصفح "Brave" أو "AdBlockers". قدم عنوانًا صالحًا ورقم هاتف إذا طلب منك. لا حاجة لتحميل مستندات، ولكن عند استيراد بطاقتك إلى المحفظات المحمولة أو الدفع عبر الإنترنت، تأكد من استخدام نفس العنوان المقدم هنا.</div>
+            <div class="text-box">5. ستتمكن من رؤية تفاصيل بطاقتك. قم باستيرادها إلى محفظتك المحمولة إذا أردت استخدامها للدفع اللاتلامسي عبر تقنية NFC في المتاجر المحلية. إذا لم تظهر تفاصيل بطاقتك، قد يكون ذلك بسبب استخدامك لشبكة VPN محجوزة من قبل مزود البطاقة، حاول تعطيلها أو اختيار VPN آخر.</div>
         </div>
     </div>
-
+    
     <div class="faq-container">
-        <div class="faq-title">Prepaid Cards F.A.Q.</div>
+        <div class="faq-title">الأسئلة الشائعة حول بطاقات الدفع المسبق</div>
         <div class="faq-item" onclick="toggleAnswer(this)">
-            <strong>What are the Restricted Countries?</strong>
+            <strong>ما هي الدول المحظورة؟</strong>
             <div class="faq-answer">
-                You cannot use our cards if you are from a restricted or sanctioned country (Russia, Cuba, Venezuela, etc.). The full list for each card provider can be seen in the link below:<br>
-<a href="https://pusdt.io/mastercard/Countries">List of Restricted/Allowed Countries by Provider 🔗</a>
+                لا يمكنك استخدام بطاقاتنا إذا كنت من دولة محظورة أو مفروضة عليها عقوبات (روسيا، كوبا، فنزويلا، إلخ). يمكنك الاطلاع على القائمة الكاملة لكل مزود بطاقة عبر الرابط التالي:<br>
+                <a href="https://pusdt.io/mastercard/Countries">قائمة الدول المحظورة/المسموح بها من قبل المزود 🔗</a>
             </div>
         </div>
         <div class="faq-item" onclick="toggleAnswer(this)">
-            <strong>Where are these cards accepted? Where aren't they accepted?</strong>
+            <strong>أين يتم قبول هذه البطاقات؟ وأين لا يتم قبولها؟</strong>
             <div class="faq-answer">
-                Our prepaid cards are either Mastercard or Visa. They can usually be imported into SamsungPay, GooglePay or ApplePay and are accepted in most online and physical establishments, but this can vary depending on the card provider, country, user device and merchant restrictions.<br>
-                This kind of card is not accepted by vendors that require 3DS authentication (vendors that check several factors to authenticate a purchase, including the user's location and whether the personal data provided during the transaction matches the bank's records). They're also not accepted by merchants that refuse gift cards and prepaid cards.<br>
-                While in our tests these cards worked very well, we unfortunately can't guarantee their acceptance in any specific case. Depending on many factors, a card could be rejected by GooglePay only to be used without issues with SamsungPay, as an example. If in doubt, we recommend you try a smaller value card first to test its acceptance in your area. You can also check the Restricted Countries List for tips of where each card provider is better accepted or not.
+                بطاقاتنا المدفوعة مسبقًا هي إما ماستر كارد أو فيزا. عادة ما يمكن استيرادها إلى SamsungPay أو GooglePay أو ApplePay وتقبل في معظم المتاجر الإلكترونية. يمكن استخدامها لتسديد المدفوعات سواء عبر الإنترنت أو في المحلات التجارية باستخدام الدفع عبر الهاتف المحمول. ومع ذلك، فإن بعض مواقع التجارة الإلكترونية، مثل Netflix أو iTunes، قد ترفض هذه البطاقات إذا كان لديهم إشراف إضافي على بطاقات الدفع. تأكد دائمًا من مزود البطاقة لمعرفة ما إذا كانت البطاقة ستعمل على مواقع محددة.
             </div>
         </div>
         <div class="faq-item" onclick="toggleAnswer(this)">
-            <strong>Do I need to go through any kind of KYC Verification?</strong>
+            <strong>هل يمكنني إرسال الأموال من هذه البطاقة إلى حساب بنكي؟</strong>
             <div class="faq-answer">
-                This service does not require any personal document upload. You need to provide a name, phone number and address upon the card generation, but there's no need to upload any documents to verify this info.<br>
-                Make sure the address used for the card's activation is the same one used when filling in the card's billing information at stores or apps like GooglePay. When buying online usually the delivery address can be different from the card's billing address.
-            </div>
-        </div>
-        <div class="faq-item" onclick="toggleAnswer(this)">
-            <strong>How does it work?</strong>
-            <div class="faq-answer">
-                You just need to select a currency, choose a card provider, amount and with which crypto you want to pay. Then provide a valid e-mail, where you'll receive the card's details. Make sure you're not a resident in one of the Restricted Countries and that you've read this FAQ, then click on the 'Buy Your Card' button. A crypto address will be generated, to which you should send the exact amount displayed in order to purchase and load the balance on your card.<br>
-                Trocador will work as a conduit system, connecting you and your chosen card provider. After the platform detects the payment, they will send you by e-mail an activation code and a link where you'll fill some basic information in order to activate the card. After activation you'll receive another email with a link which you can use to check its number, current balance and purchase history. From there, you can import your card to apps such as SamsungPay, GooglePay and ApplePay and then use it on your phone through NFC technology to pay local stores.<br>
-                If you encounter any issues, you can contact the intermediary provider directly. Their support team is available 24/7. You can reach them via Telegram at <a href="https://t.me/TrocadorSupportBot" target="_blank">https://t.me/TrocadorSupportBot</a> or by email at <a href="mailto:mail@trocador.app">mail@trocador.app</a>.
+                غالبًا ما يتم قبول هذه البطاقات في البنوك الإلكترونية، ولكن نظرًا لوجود مزودات متعددة لهذه البطاقة، قد يختلف هذا من حالة إلى أخرى. تأكد من أنك على علم بسياسات مزودك المحدد. اقرأ دائمًا الأسئلة الشائعة لمزود البطاقة.
             </div>
         </div>
     </div>
+    
 
   <script>
 document.addEventListener('DOMContentLoaded', function() {
